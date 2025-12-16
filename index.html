@@ -1,1 +1,86 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tanish – Digital Card</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a1f44;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .card {
+      width: 260px;
+      height: 260px;
+      background: linear-gradient(135deg, #0b3c91, #0a1f44);
+      color: #dbe8ff;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform 0.6s;
+    }
+
+    .card:hover {
+      transform: rotateY(180deg);
+    }
+
+    h1 {
+      font-size: 18px;
+      margin: 6px 0;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      font-size: 14px;
+      margin: 4px 0;
+      opacity: 0.9;
+    }
+
+    a {
+      color: #dbe8ff;
+      text-decoration: none;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card" onclick="saveContact()">
+    <h1>Tanish</h1>
+    <p>+91 98765 43210</p>
+    <p>Dell Technologies × Croma</p>
+    <a href="https://wa.me/919876543210">WhatsApp</a>
+  </div>
+
+  <script>
+    function saveContact() {
+      const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Tanish
+ORG:Dell Technologies - Croma
+TEL:+919876543210
+END:VCARD`;
+
+      const blob = new Blob([vcard], { type: "text/vcard" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "Tanish.vcf";
+      link.click();
+    }
+  </script>
+</body>
+</html>
