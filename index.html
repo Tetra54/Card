@@ -1,104 +1,105 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tanish – Digital Card</title>
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #0a1f44;
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#e9eef7;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Scene */
-.scene {
-  width: 260px;
-  height: 260px;
-  perspective: 1000px;
+/* CARD CONTAINER */
+.scene{
+  width:260px;
+  height:260px;
+  perspective:900px;
 }
 
-/* Card */
-.card {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.8s ease;
+/* FLIP CARD */
+.card{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform 0.8s ease;
+  cursor:pointer;
+}
+.card.flipped{
+  transform:rotateY(180deg);
 }
 
-/* Flip state */
-.card.is-flipped {
-  transform: rotateY(180deg);
+/* COMMON FACE */
+.face{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:16px;
+  background:linear-gradient(135deg,#0b3c91,#0a1f44);
+  color:#ffffff;
+  box-shadow:0 20px 40px rgba(0,0,0,0.25);
 }
 
-/* Faces */
-.face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #0b3c91, #0a1f44);
-  color: #dbe8ff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+/* FRONT */
+.front{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+.front img{
+  width:140px;
+  margin-bottom:10px;
+}
+.front .brand{
+  font-size:20px;
+  opacity:0.9;
 }
 
-/* Front */
-.front h2 {
-  margin: 0;
-  font-size: 18px;
-  letter-spacing: 0.5px;
+/* BACK */
+.back{
+  transform:rotateY(180deg);
+  padding:20px;
+  box-sizing:border-box;
+}
+.back .info{
+  position:absolute;
+  right:20px;
+  top:80px;
+  text-align:right;
+}
+.back .name{
+  font-size:18px;
+  margin-bottom:6px;
+}
+.back .phone{
+  font-size:15px;
+  opacity:0.9;
+}
+.back img{
+  position:absolute;
+  right:20px;
+  bottom:20px;
+  width:70px;
 }
 
-.front p {
-  margin-top: 6px;
-  opacity: 0.8;
-  font-size: 14px;
-}
-
-/* Back */
-.back {
-  transform: rotateY(180deg);
-}
-
-.back h3 {
-  margin: 6px 0;
-  font-size: 16px;
-}
-
-.back p {
-  font-size: 14px;
-  opacity: 0.9;
-}
-
-/* Buttons */
-button {
-  margin-top: 12px;
-  padding: 6px 12px;
-  font-size: 13px;
-  border: 1px solid #dbe8ff;
-  background: transparent;
-  color: #dbe8ff;
-  border-radius: 6px;
-}
-
-/* Hint */
-.hint {
-  position: absolute;
-  bottom: -28px;
-  font-size: 12px;
-  opacity: 0.6;
+/* SAVE BUTTON */
+.save{
+  position:absolute;
+  left:20px;
+  bottom:20px;
+  font-size:12px;
+  opacity:0.8;
+  text-decoration:underline;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -107,19 +108,23 @@ button {
 
 <div class="scene">
   <div class="card" id="card">
-    
+
     <!-- FRONT -->
     <div class="face front">
-      <h2>DELL Technologies</h2>
-      <p>croma</p>
-      <div class="hint">Tap to flip</div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg">
+      <div class="brand">croma</div>
     </div>
 
     <!-- BACK -->
     <div class="face back">
-      <h3>Tanish</h3>
-      <p>+91 98765 43210</p>
-      <button onclick="saveContact(event)">Save Contact</button>
+      <div class="info">
+        <div class="name">Tanish</div>
+        <div class="phone">+91 98765 43210</div>
+      </div>
+
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tetra54.github.io/Card/">
+
+      <div class="save" onclick="saveContact(event)">Save Contact</div>
     </div>
 
   </div>
@@ -128,14 +133,12 @@ button {
 <script>
 const card = document.getElementById("card");
 
-/* Flip only */
 card.addEventListener("click", () => {
-  card.classList.toggle("is-flipped");
+  card.classList.toggle("flipped");
 });
 
-/* Save contact (separate action) */
-function saveContact(e) {
-  e.stopPropagation(); // VERY IMPORTANT
+function saveContact(e){
+  e.stopPropagation();
 
   const vcard = `BEGIN:VCARD
 VERSION:3.0
@@ -144,7 +147,7 @@ ORG:Dell Technologies – Croma
 TEL:+919876543210
 END:VCARD`;
 
-  const blob = new Blob([vcard], { type: "text/vcard" });
+  const blob = new Blob([vcard], {type:"text/vcard"});
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
   link.download = "Tanish.vcf";
