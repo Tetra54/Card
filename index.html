@@ -3,103 +3,115 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tanish – Digital Card</title>
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #eef2f8;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+:root{
+  --card-blue:#0b2f6a;
+  --text-light:#9ecbff;
+  --white:#ffffff;
 }
 
-/* Scene gives depth */
-.scene {
-  width: 320px;
-  height: 200px;
-  perspective: 1000px;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#eef2f8;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
 }
 
-/* Card rotates */
-.card {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.8s ease;
-  cursor: pointer;
+/* ==== CARD WRAPPER ==== */
+.scene{
+  width:260px;
+  height:260px;
+  perspective:1000px;
 }
 
-.card.is-flipped {
-  transform: rotateY(180deg);
+/* ==== CARD ==== */
+.card{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .7s cubic-bezier(.4,.2,.2,1);
+  border-radius:22px;
+  cursor:pointer;
 }
 
-/* Common face styles */
-.card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 18px;
-  backface-visibility: hidden;
-  background: linear-gradient(135deg, #0b2e6f, #0a1f44);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  color: #e6f0ff;
+/* ==== FLIP ==== */
+.card.flipped{
+  transform:rotateY(180deg);
 }
 
-/* FRONT */
-.front {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* ==== BOTH SIDES ==== */
+.face{
+  position:absolute;
+  inset:0;
+  border-radius:22px;
+  background:linear-gradient(135deg,#0b3b88,#082b63);
+  box-shadow:0 18px 40px rgba(0,0,0,.25);
+  backface-visibility:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 }
 
-.front .line {
-  width: 120px;
-  height: 1px;
-  background: #9bbcff;
-  margin: 8px 0;
+/* ==== FRONT (2A LOOK) ==== */
+.front img{
+  width:120px;
+  margin-bottom:14px;
 }
 
-.front .dell {
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: 1px;
+.front span{
+  color:var(--white);
+  font-size:16px;
+  letter-spacing:.6px;
 }
 
-.front .croma {
-  font-size: 16px;
-  opacity: 0.9;
+/* ==== BACK (2B LOOK) ==== */
+.back{
+  transform:rotateY(180deg);
+  padding:22px;
+  align-items:flex-start;
+  justify-content:space-between;
 }
 
-/* BACK */
-.back {
-  transform: rotateY(180deg);
-  padding: 22px;
-  box-sizing: border-box;
+.info{
+  color:var(--text-light);
 }
 
-.back .name {
-  font-size: 18px;
-  margin-bottom: 6px;
+.info h3{
+  margin:0 0 8px;
+  font-weight:500;
+  font-size:18px;
 }
 
-.back .phone {
-  font-size: 15px;
-  opacity: 0.9;
+.info p{
+  margin:0;
+  font-size:15px;
+  opacity:.9;
 }
 
-.back .qr {
-  position: absolute;
-  right: 18px;
-  bottom: 18px;
-  width: 64px;
-  height: 64px;
-  background: #ffffff;
+.qr{
+  align-self:flex-end;
+}
+
+.qr img{
+  width:70px;
+  opacity:.9;
+}
+
+.save{
+  margin-top:14px;
+  color:var(--text-light);
+  font-size:13px;
+  text-decoration:underline;
 }
 </style>
 </head>
@@ -110,45 +122,52 @@ body {
   <div class="card" id="card">
 
     <!-- FRONT -->
-    <div class="card-face front">
-      <div class="dell">DELL Technologies</div>
-      <div class="line"></div>
-      <div class="croma">croma</div>
+    <div class="face front">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg">
+      <span>croma</span>
     </div>
 
     <!-- BACK -->
-    <div class="card-face back">
-      <div class="name">Tanish</div>
-      <div class="phone">+91 98765 43210</div>
-      <img class="qr"
-        src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://tetra54.github.io/Card/"
-        alt="QR">
+    <div class="face back">
+      <div class="info">
+        <h3>Tanish</h3>
+        <p>+91 98765 43210</p>
+        <div class="save" onclick="saveContact(event)">Save Contact</div>
+      </div>
+
+      <div class="qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tetra54.github.io/Card/">
+      </div>
     </div>
 
   </div>
 </div>
 
 <script>
-const card = document.getElementById("card");
+const card=document.getElementById("card");
 
-card.addEventListener("click", () => {
-  card.classList.toggle("is-flipped");
+card.addEventListener("click",()=>{
+  if(navigator.vibrate) navigator.vibrate(30);
+  card.classList.toggle("flipped");
+});
 
-  // download contact ONLY when flipped to back
-  if (card.classList.contains("is-flipped")) {
-    const vcard = `BEGIN:VCARD
+function saveContact(e){
+  e.stopPropagation();
+  if(navigator.vibrate) navigator.vibrate([20,40,20]);
+
+  const vcf=`BEGIN:VCARD
 VERSION:3.0
+N:Tanish
 FN:Tanish
-TEL:+919876543210
+TEL;TYPE=CELL:+919876543210
 END:VCARD`;
 
-    const blob = new Blob([vcard], { type: "text/vcard" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "Tanish.vcf";
-    link.click();
-  }
-});
+  const blob=new Blob([vcf],{type:"text/vcard"});
+  const link=document.createElement("a");
+  link.href=URL.createObjectURL(blob);
+  link.download="Tanish.vcf";
+  link.click();
+}
 </script>
 
 </body>
