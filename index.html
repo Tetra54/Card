@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Digital Card – Front</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanish – Digital Card</title>
 
 <style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body{
   margin:0;
   height:100vh;
@@ -13,67 +18,182 @@ body{
   justify-content:center;
   align-items:center;
   background:#eef3fb;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* CARD */
+/* === CARD CONTAINER === */
+.scene{
+  width:280px;
+  height:280px;
+  perspective:1200px;
+}
+
 .card{
-  width:260px;
-  height:260px;
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition: transform 0.8s ease;
   border-radius:22px;
-  background:linear-gradient(145deg,#0b2f6a,#0a3b8a);
-  box-shadow:
-    0 20px 45px rgba(0,0,0,.35),
-    inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.card.is-flipped{
+  transform: rotateY(180deg);
+}
+
+/* === COMMON FACE STYLE === */
+.face{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:22px;
+  box-shadow:0 25px 45px rgba(0,0,0,0.25);
   display:flex;
-  align-items:center;
   justify-content:center;
-}
-
-/* BRAND STACK */
-.brand{
-  display:flex;
-  flex-direction:column;
   align-items:center;
 }
 
-/* Dell wordmark */
-.dell-logo{
-  width:150px;
-  margin-bottom:14px;
+/* === FRONT === */
+.front{
+  background: linear-gradient(135deg,#0a2a66,#0d3b8c);
 }
 
-/* Divider */
+.brand{
+  text-align:center;
+  color:#eaf1ff;
+}
+
+.dell{
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:0.4px;
+}
+
+.dell span{
+  font-weight:400;
+  opacity:0.9;
+}
+
 .divider{
-  width:90px;
+  width:140px;
   height:1px;
-  background:rgba(255,255,255,.45);
-  margin-bottom:10px;
+  background:rgba(255,255,255,0.45);
+  margin:14px auto 10px;
 }
 
-/* Croma */
-.croma-logo{
-  width:90px;
-  opacity:.95;
+.croma{
+  font-size:22px;
+  letter-spacing:1px;
+  font-weight:300;
+}
+
+/* === BACK === */
+.back{
+  background: linear-gradient(135deg,#0d3b8c,#0a2a66);
+  transform: rotateY(180deg);
+  padding:22px;
+}
+
+.info{
+  width:100%;
+  color:#cfe3ff;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+
+.text{
+  font-size:14px;
+  line-height:1.6;
+}
+
+.text .name{
+  font-size:16px;
+  font-weight:500;
+  margin-bottom:4px;
+}
+
+.qr{
+  width:72px;
+  height:72px;
+}
+
+.qr img{
+  width:100%;
+  height:100%;
+}
+
+/* === HAPTIC === */
+.card:active{
+  transform: scale(0.98);
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <div class="brand">
-    <img class="dell-logo"
-      src="https://upload.wikimedia.org/wikipedia/commons/1/18/Dell_Technologies_logo.svg"
-      alt="Dell Technologies">
+<div class="scene">
+  <div class="card" id="card">
 
-    <div class="divider"></div>
+    <!-- FRONT -->
+    <div class="face front">
+      <div class="brand">
+        <div class="dell">DELL <span>Technologies</span></div>
+        <div class="divider"></div>
+        <div class="croma">croma</div>
+      </div>
+    </div>
 
-    <img class="croma-logo"
-      src="https://upload.wikimedia.org/wikipedia/commons/8/86/Croma_Logo.svg"
-      alt="Croma">
+    <!-- BACK -->
+    <div class="face back">
+      <div class="info">
+        <div class="text">
+          <div class="name">Tanish</div>
+          <div>+91 98765 43210</div>
+          <div style="margin-top:6px; font-size:12px; opacity:0.8;">
+            Tap card to save contact
+          </div>
+        </div>
+
+        <div class="qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&color=180-210-255&bgcolor=10-42-102&data=https://wa.me/919876543210">
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
+
+<script>
+const card = document.getElementById("card");
+let saved = false;
+
+card.addEventListener("click", () => {
+  navigator.vibrate && navigator.vibrate(20);
+
+  card.classList.toggle("is-flipped");
+
+  if(card.classList.contains("is-flipped") && !saved){
+    saveContact();
+    saved = true;
+  }
+});
+
+function saveContact(){
+  const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Tanish
+TEL:+919876543210
+END:VCARD`;
+
+  const blob = new Blob([vcard], { type: "text/vcard" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "Tanish.vcf";
+  link.click();
+}
+</script>
 
 </body>
 </html>
