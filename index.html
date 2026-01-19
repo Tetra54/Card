@@ -1,173 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Tanish – Digital Card</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanish | Digital Visiting Card</title>
 
 <style>
-:root{
-  --blue-dark:#0b2a5b;
-  --blue-mid:#0f3b8c;
-  --blue-light:#7fb2ff;
-  --white:#eaf1ff;
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eef2f7;
+    font-family: "Segoe UI", sans-serif;
 }
 
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#eef3fb;
-  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+.card-container {
+    width: 320px;
 }
 
-/* ===== CARD WRAPPER ===== */
-.scene{
-  perspective:1200px;
+.card {
+    background: linear-gradient(145deg, #0a2a66, #0d3c91);
+    color: white;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
-.card{
-  width:260px;
-  height:260px;
-  position:relative;
-  transform-style:preserve-3d;
-  transition:transform .8s cubic-bezier(.4,.2,.2,1);
-  border-radius:18px;
-  cursor:pointer;
+.logo {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
-/* ===== COMMON FACE ===== */
-.face{
-  position:absolute;
-  inset:0;
-  border-radius:18px;
-  backface-visibility:hidden;
-  box-shadow:
-    0 25px 45px rgba(0,0,0,.25),
-    inset 0 0 0 1px rgba(255,255,255,.04);
-  overflow:hidden;
+.sub-logo {
+    text-align: center;
+    margin-top: 6px;
+    font-size: 18px;
+    opacity: 0.85;
 }
 
-/* ===== FABRIC / NOISE TEXTURE ===== */
-.face::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    repeating-linear-gradient(
-      -45deg,
-      rgba(255,255,255,.03),
-      rgba(255,255,255,.03) 2px,
-      rgba(0,0,0,.02) 4px
-    );
-  pointer-events:none;
+.divider {
+    width: 60%;
+    height: 1px;
+    background: rgba(255,255,255,0.4);
+    margin: 14px auto;
 }
 
-/* ===== FRONT (2A LOOK) ===== */
-.front{
-  background:linear-gradient(135deg,var(--blue-mid),var(--blue-dark));
-  color:var(--white);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
+/* Back side */
+.name {
+    font-size: 18px;
+    margin-bottom: 6px;
 }
 
-.dell{
-  font-weight:600;
-  letter-spacing:.6px;
-  font-size:20px;
+.number {
+    font-size: 16px;
+    opacity: 0.9;
 }
 
-.tech{
-  font-weight:300;
-  opacity:.9;
+.qr {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.line{
-  width:120px;
-  height:1px;
-  background:rgba(255,255,255,.35);
-  margin:10px 0 8px;
+.qr img {
+    width: 70px;
+    height: 70px;
+    background: white;
+    padding: 6px;
+    border-radius: 8px;
 }
 
-.croma{
-  font-size:18px;
-  letter-spacing:.3px;
-  opacity:.9;
+/* Buttons */
+.actions a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
 }
 
-/* ===== BACK ===== */
-.back{
-  background:linear-gradient(135deg,#0e3b8a,#0a2554);
-  transform:rotateY(180deg);
-  color:var(--blue-light);
-  padding:26px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
+.whatsapp {
+    background: #25D366;
+    color: white;
 }
 
-.name{
-  font-size:18px;
-  color:var(--white);
-}
-
-.phone{
-  font-size:16px;
-  opacity:.9;
-}
-
-.qr{
-  width:72px;
-  height:72px;
-  align-self:flex-end;
-}
-
-/* ===== FLIP ===== */
-.card.flipped{
-  transform:rotateY(180deg);
+.call {
+    background: white;
+    color: #0a2a66;
 }
 </style>
 </head>
 
 <body>
 
-<div class="scene">
-  <div class="card" onclick="flipCard()">
+<div class="card-container">
 
-    <!-- FRONT -->
-    <div class="face front">
-      <div class="dell">DELL <span class="tech">Technologies</span></div>
-      <div class="line"></div>
-      <div class="croma">croma</div>
+    <!-- FRONT (2A) -->
+    <div class="card">
+        <div class="logo">DELL Technologies</div>
+        <div class="divider"></div>
+        <div class="sub-logo">croma</div>
     </div>
 
-    <!-- BACK -->
-    <div class="face back">
-      <div>
-        <div class="dell">DELL <span class="tech">Technologies</span></div>
+    <!-- BACK (2B) -->
+    <div class="card">
         <div class="name">Tanish</div>
-        <div class="phone">+91 98765 43210</div>
-      </div>
+        <div class="number">+91 98765 43210</div>
 
-      <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/919876543210" />
+        <div class="qr">
+            <div>Scan to Chat</div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/919876543210">
+        </div>
     </div>
 
-  </div>
-</div>
+    <!-- ACTIONS -->
+    <div class="actions">
+        <a class="whatsapp" href="https://wa.me/919876543210?text=Hello%20I%20got%20your%20card">
+            WhatsApp Chat
+        </a>
+        <a class="call" href="tel:+919876543210">
+            Call Now
+        </a>
+    </div>
 
-<script>
-function flipCard(){
-  if(navigator.vibrate) navigator.vibrate(12);
-  document.querySelector('.card').classList.toggle('flipped');
-}
-</script>
+</div>
 
 </body>
 </html>
