@@ -1,76 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tanish – Digital Card</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Digital Card – Front</title>
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle at top, #eef3fb, #dfe7f5);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#eef3fb;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont;
+}
 
-    .card {
-      width: 260px;
-      height: 260px;
-      border-radius: 22px;
-      background: linear-gradient(145deg, #0a2f6d, #0b3f92);
-      box-shadow:
-        0 20px 45px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+/* CARD */
+.card{
+  width:260px;
+  height:260px;
+  border-radius:22px;
+  background:linear-gradient(145deg,#0b2f6a,#0a3b8a);
+  box-shadow:
+    0 20px 45px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    .brand {
-      text-align: center;
-      color: #eaf2ff;
-    }
+/* BRAND STACK */
+.brand{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
 
-    /* DELL Technologies – wordmark look */
-    .dell {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-    }
+/* Dell wordmark */
+.dell-logo{
+  width:150px;
+  margin-bottom:14px;
+}
 
-    .dell span {
-      font-weight: 300;
-      margin-left: 4px;
-      opacity: 0.95;
-    }
+/* Divider */
+.divider{
+  width:90px;
+  height:1px;
+  background:rgba(255,255,255,.45);
+  margin-bottom:10px;
+}
 
-    .line {
-      width: 90px;
-      height: 1px;
-      background: rgba(234, 242, 255, 0.45);
-      margin: 10px auto 8px;
-    }
-
-    /* croma */
-    .croma {
-      font-size: 16px;
-      font-weight: 400;
-      letter-spacing: 1px;
-      opacity: 0.95;
-    }
-  </style>
+/* Croma */
+.croma-logo{
+  width:90px;
+  opacity:.95;
+}
+</style>
 </head>
 
 <body>
-  <div class="card">
-    <div class="brand">
-      <div class="dell">DELL<span>Technologies</span></div>
-      <div class="line"></div>
-      <div class="croma">croma</div>
-    </div>
+
+<div class="card">
+  <div class="brand">
+    <img class="dell-logo"
+      src="https://upload.wikimedia.org/wikipedia/commons/1/18/Dell_Technologies_logo.svg"
+      alt="Dell Technologies">
+
+    <div class="divider"></div>
+
+    <img class="croma-logo"
+      src="https://upload.wikimedia.org/wikipedia/commons/8/86/Croma_Logo.svg"
+      alt="Croma">
   </div>
+</div>
+
 </body>
 </html>
