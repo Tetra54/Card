@@ -1,138 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tanish | Digital Visiting Card</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tanish – Digital Card</title>
 
-<style>
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #eef2f7;
-    font-family: "Segoe UI", sans-serif;
-}
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #eef3fb, #dfe7f5);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
 
-.card-container {
-    width: 320px;
-}
+    .card {
+      width: 260px;
+      height: 260px;
+      border-radius: 22px;
+      background: linear-gradient(145deg, #0a2f6d, #0b3f92);
+      box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.card {
-    background: linear-gradient(145deg, #0a2a66, #0d3c91);
-    color: white;
-    border-radius: 14px;
-    padding: 22px;
-    margin-bottom: 16px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-}
+    .brand {
+      text-align: center;
+      color: #eaf2ff;
+    }
 
-.logo {
-    text-align: center;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
+    /* DELL Technologies – wordmark look */
+    .dell {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
 
-.sub-logo {
-    text-align: center;
-    margin-top: 6px;
-    font-size: 18px;
-    opacity: 0.85;
-}
+    .dell span {
+      font-weight: 300;
+      margin-left: 4px;
+      opacity: 0.95;
+    }
 
-.divider {
-    width: 60%;
-    height: 1px;
-    background: rgba(255,255,255,0.4);
-    margin: 14px auto;
-}
+    .line {
+      width: 90px;
+      height: 1px;
+      background: rgba(234, 242, 255, 0.45);
+      margin: 10px auto 8px;
+    }
 
-/* Back side */
-.name {
-    font-size: 18px;
-    margin-bottom: 6px;
-}
-
-.number {
-    font-size: 16px;
-    opacity: 0.9;
-}
-
-.qr {
-    margin-top: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.qr img {
-    width: 70px;
-    height: 70px;
-    background: white;
-    padding: 6px;
-    border-radius: 8px;
-}
-
-/* Buttons */
-.actions a {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    margin-top: 10px;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.whatsapp {
-    background: #25D366;
-    color: white;
-}
-
-.call {
-    background: white;
-    color: #0a2a66;
-}
-</style>
+    /* croma */
+    .croma {
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      opacity: 0.95;
+    }
+  </style>
 </head>
 
 <body>
-
-<div class="card-container">
-
-    <!-- FRONT (2A) -->
-    <div class="card">
-        <div class="logo">DELL Technologies</div>
-        <div class="divider"></div>
-        <div class="sub-logo">croma</div>
+  <div class="card">
+    <div class="brand">
+      <div class="dell">DELL<span>Technologies</span></div>
+      <div class="line"></div>
+      <div class="croma">croma</div>
     </div>
-
-    <!-- BACK (2B) -->
-    <div class="card">
-        <div class="name">Tanish</div>
-        <div class="number">+91 98765 43210</div>
-
-        <div class="qr">
-            <div>Scan to Chat</div>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/919876543210">
-        </div>
-    </div>
-
-    <!-- ACTIONS -->
-    <div class="actions">
-        <a class="whatsapp" href="https://wa.me/919876543210?text=Hello%20I%20got%20your%20card">
-            WhatsApp Chat
-        </a>
-        <a class="call" href="tel:+919876543210">
-            Call Now
-        </a>
-    </div>
-
-</div>
-
+  </div>
 </body>
 </html>
