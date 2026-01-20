@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tanish – Digital Card</title>
 
 <style>
 *{
   box-sizing:border-box;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
@@ -17,15 +17,14 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:#eef3fb;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background:#eef2f8;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
 }
 
-/* === CARD CONTAINER === */
 .scene{
-  width:280px;
-  height:280px;
-  perspective:1200px;
+  width:260px;
+  height:260px;
+  perspective:1000px;
 }
 
 .card{
@@ -33,100 +32,77 @@ body{
   height:100%;
   position:relative;
   transform-style:preserve-3d;
-  transition: transform 0.8s ease;
-  border-radius:22px;
+  transition:transform 0.7s ease;
+  border-radius:28px;
+  box-shadow:0 28px 48px rgba(0,0,0,.28);
 }
 
-.card.is-flipped{
-  transform: rotateY(180deg);
+.card.flipped{
+  transform:rotateY(180deg);
 }
 
-/* === COMMON FACE STYLE === */
 .face{
   position:absolute;
-  width:100%;
-  height:100%;
+  inset:0;
   backface-visibility:hidden;
-  border-radius:22px;
-  box-shadow:0 25px 45px rgba(0,0,0,0.25);
+  border-radius:28px;
   display:flex;
   justify-content:center;
   align-items:center;
 }
 
-/* === FRONT === */
+/* ---------- FRONT ---------- */
 .front{
-  background: linear-gradient(135deg,#0a2a66,#0d3b8c);
+  background:linear-gradient(135deg,#0a2a66,#0d3b8c);
+  flex-direction:column;
 }
 
-.brand{
-  text-align:center;
-  color:#eaf1ff;
+/* REAL DELL WORDMARK */
+.dell-logo{
+  width:180px;
+  margin-bottom:22px;
 }
 
-.dell{
-  font-size:20px;
-  font-weight:600;
-  letter-spacing:0.4px;
-}
-
-.dell span{
-  font-weight:400;
-  opacity:0.9;
-}
-
-.divider{
-  width:140px;
-  height:1px;
-  background:rgba(255,255,255,0.45);
-  margin:14px auto 10px;
-}
-
+/* CROMA – MINIMAL */
 .croma{
-  font-size:22px;
+  color:#ffffff;
+  font-size:18px;
   letter-spacing:1px;
-  font-weight:300;
+  opacity:.95;
 }
 
-/* === BACK === */
+/* ---------- BACK ---------- */
 .back{
-  background: linear-gradient(135deg,#0d3b8c,#0a2a66);
-  transform: rotateY(180deg);
+  background:linear-gradient(135deg,#0a2a66,#0d3b8c);
+  transform:rotateY(180deg);
+  color:#cfe3ff;
   padding:22px;
 }
 
 .info{
   width:100%;
-  color:#cfe3ff;
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
+  align-items:flex-end;
 }
 
 .text{
-  font-size:14px;
   line-height:1.6;
 }
 
-.text .name{
+.name{
+  font-size:18px;
+}
+
+.phone{
   font-size:16px;
-  font-weight:500;
-  margin-bottom:4px;
+  margin-top:6px;
 }
 
 .qr{
-  width:72px;
-  height:72px;
-}
-
-.qr img{
-  width:100%;
-  height:100%;
-}
-
-/* === HAPTIC === */
-.card:active{
-  transform: scale(0.98);
+  width:58px;
+  height:58px;
+  opacity:.9;
 }
 </style>
 </head>
@@ -138,11 +114,9 @@ body{
 
     <!-- FRONT -->
     <div class="face front">
-      <div class="brand">
-        <div class="dell">DELL <span>Technologies</span></div>
-        <div class="divider"></div>
-        <div class="croma">croma</div>
-      </div>
+      <!-- USE REAL DELL LOGO IMAGE (WORDMARK ONLY) -->
+      <img src="assets/dell-technologies.png" class="dell-logo" alt="Dell Technologies">
+      <div class="croma">croma</div>
     </div>
 
     <!-- BACK -->
@@ -150,15 +124,14 @@ body{
       <div class="info">
         <div class="text">
           <div class="name">Tanish</div>
-          <div>+91 98765 43210</div>
-          <div style="margin-top:6px; font-size:12px; opacity:0.8;">
-            Tap card to save contact
-          </div>
+          <div class="phone">+91 98765 43210</div>
         </div>
 
-        <div class="qr">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&color=180-210-255&bgcolor=10-42-102&data=https://wa.me/919876543210">
-        </div>
+        <img
+          class="qr"
+          src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&color=120-180-255&bgcolor=10-42-102&data=https://tetra54.github.io/Card/"
+          alt="QR"
+        />
       </div>
     </div>
 
@@ -166,33 +139,28 @@ body{
 </div>
 
 <script>
-const card = document.getElementById("card");
-let saved = false;
+let flipped=false;
 
-card.addEventListener("click", () => {
-  navigator.vibrate && navigator.vibrate(20);
+document.getElementById("card").addEventListener("click",()=>{
+  navigator.vibrate?.(20);
 
-  card.classList.toggle("is-flipped");
-
-  if(card.classList.contains("is-flipped") && !saved){
-    saveContact();
-    saved = true;
-  }
-});
-
-function saveContact(){
-  const vcard = `BEGIN:VCARD
+  if(!flipped){
+    document.getElementById("card").classList.add("flipped");
+    flipped=true;
+  }else{
+    const vcard=`BEGIN:VCARD
 VERSION:3.0
 FN:Tanish
 TEL:+919876543210
 END:VCARD`;
 
-  const blob = new Blob([vcard], { type: "text/vcard" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "Tanish.vcf";
-  link.click();
-}
+    const blob=new Blob([vcard],{type:"text/vcard"});
+    const link=document.createElement("a");
+    link.href=URL.createObjectURL(blob);
+    link.download="Tanish.vcf";
+    link.click();
+  }
+});
 </script>
 
 </body>
