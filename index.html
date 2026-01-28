@@ -13,7 +13,6 @@
     justify-content: center;
     align-items: center;
     background: #eef2f6;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont;
   }
 
   .card {
@@ -27,15 +26,61 @@
     justify-content: center;
   }
 
-  .logo {
-    width: 160px;
+  svg {
+    width: 200px;
   }
 </style>
 </head>
 
 <body>
-  <div class="card">
-    <img src="assets/dell-logo.svg" alt="Dell Logo" class="logo" />
-  </div>
+<div class="card">
+
+<svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- CONNECTED D + E + L -->
+  <path
+    fill="white"
+    d="
+      M40 30
+      H120
+      C170 30 170 130 120 130
+      H40
+      Z
+
+      M120 30
+      L200 80
+      L120 130
+      L150 130
+      L230 80
+      L150 30
+      Z
+
+      M230 30
+      H260
+      V110
+      H320
+      V130
+      H230
+      Z
+    "
+  />
+
+  <!-- SECOND L -->
+  <path
+    fill="white"
+    d="
+      M350 30
+      H380
+      V110
+      H440
+      V130
+      H350
+      Z
+    "
+  />
+
+</svg>
+
+</div>
 </body>
 </html>
