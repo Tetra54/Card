@@ -1,92 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Digital Card</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Card</title>
 
-<style>
-  * {
-    box-sizing: border-box;
-  }
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eef2f6;
+      font-family: system-ui, sans-serif;
+    }
 
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #eef2f7;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  }
+    .scene {
+      width: 300px;
+      height: 300px;
+      perspective: 1000px;
+    }
 
-  .scene {
-    width: 280px;
-    height: 280px;
-    perspective: 1000px;
-  }
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+      cursor: pointer;
+    }
 
-  .card {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.8s ease;
-    cursor: pointer;
-  }
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
 
-  .card.is-flipped {
-    transform: rotateY(180deg);
-  }
+    .side {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
 
-  .card-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 28px;
-    backface-visibility: hidden;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  }
+    .side img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-  .card-face img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .card-back {
-    transform: rotateY(180deg);
-  }
-</style>
+    .back {
+      transform: rotateY(180deg);
+    }
+  </style>
 </head>
 
 <body>
-
-<div class="scene">
-  <div class="card" id="card">
-    <div class="card-face card-front">
-      <img src="front.jpg" alt="Front Card">
-    </div>
-    <div class="card-face card-back">
-      <img src="back.jpg" alt="Back Card">
+  <div class="scene">
+    <div class="card" onclick="this.classList.toggle('flipped')">
+      <div class="side front">
+        <img src="front.jpg" alt="Front Card">
+      </div>
+      <div class="side back">
+        <img src="back.jpg" alt="Back Card">
+      </div>
     </div>
   </div>
-</div>
-
-<script>
-  const card = document.getElementById("card");
-
-  card.addEventListener("click", () => {
-    card.classList.toggle("is-flipped");
-
-    // mobile haptic (safe)
-    if (navigator.vibrate) {
-      navigator.vibrate(15);
-    }
-  });
-</script>
-
 </body>
 </html>
