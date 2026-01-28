@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Dell Card Front</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dell Card</title>
 
 <style>
   body {
     margin: 0;
     height: 100vh;
+    background: #eef2f6;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #eef2f6;
   }
 
   .card {
@@ -20,67 +20,24 @@
     height: 300px;
     border-radius: 28px;
     background: linear-gradient(145deg, #0b3a7a, #062a5e);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    box-shadow: 0 25px 45px rgba(0,0,0,0.3);
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
   }
 
-  svg {
-    width: 200px;
+  .card img {
+    width: 140px;
+    height: auto;
   }
 </style>
 </head>
 
 <body>
+
 <div class="card">
-
-<svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg">
-
-  <!-- CONNECTED D + E + L -->
-  <path
-    fill="white"
-    d="
-      M40 30
-      H120
-      C170 30 170 130 120 130
-      H40
-      Z
-
-      M120 30
-      L200 80
-      L120 130
-      L150 130
-      L230 80
-      L150 30
-      Z
-
-      M230 30
-      H260
-      V110
-      H320
-      V130
-      H230
-      Z
-    "
-  />
-
-  <!-- SECOND L -->
-  <path
-    fill="white"
-    d="
-      M350 30
-      H380
-      V110
-      H440
-      V130
-      H350
-      Z
-    "
-  />
-
-</svg>
-
+  <img src="assets/dell-logo.svg" alt="Dell Logo">
 </div>
+
 </body>
 </html>
